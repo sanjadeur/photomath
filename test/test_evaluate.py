@@ -1,8 +1,8 @@
-from evaluate import *
+from solver import *
 import unittest
 
 
-class TestEvaluate(unittest.TestCase):
+class TestSolver(unittest.TestCase):
     def test_node(self):
         node = Node(5)
 
