@@ -28,6 +28,8 @@ class TestSolver(unittest.TestCase):
         self.assertEqual(normalise_expression('+ 0 3'), ['3'])
         self.assertEqual(normalise_expression('( - 0 0 5 6 * 5 )'), ['(', '-56', '*', '5', ')'])
         self.assertEqual(normalise_expression('5 - 0 3 0'), ['5', '-', '30'])
+        self.assertEqual(normalise_expression('+ ( 3 - 2 )'), ['(', '3', '-', '2', ')'])
+        self.assertEqual(normalise_expression('- ( 3 - 2 )'), ['-1', '*', '(', '3', '-', '2', ')'])
 
     def test_validate_expression(self):
         self.assertTrue(validate_expression(['-5', '*', '(', '2', '+', '3', ')']))

@@ -62,6 +62,14 @@ def normalise_expression(expression: str) -> List[str]:
 
             normalised_expression.append(str(int(new_symbol)))
 
+        # E.g. converts '+ ( 3 - 2 )' to ['(', '3', '-', '2', ')']
+        elif symbol == '+' and left == '' and right == '(':
+            pass
+
+        # E.g. converts '- ( 3 - 2 )' to ['-1', '*', '(', '3', '-', '2', ')']
+        elif symbol == '-' and left == '' and right == '(':
+            normalised_expression += ['-1', '*']
+
         else:
             normalised_expression.append(symbol)
 
