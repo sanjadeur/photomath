@@ -44,8 +44,10 @@ def save_characters(characters, photo_name, width, height, dest):
         cv2.imwrite(os.path.join(dir_name, f'char_{idx}.jpg'), resized_photo)
 
 
-def detect(photo_path, width, height, dest):
-    photo_name = photo_path.strip().split('/')[-1].split('.')[0]
-
+def detect(photo_path, photo_name, width, height, dest):
     characters = extract_characters(photo_path)
+    if len(characters) == 0:
+        return False
+
     save_characters(characters, photo_name, width, height, dest)
+    return True

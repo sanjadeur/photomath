@@ -1,6 +1,5 @@
 import re
-import sys
-from typing import List
+from typing import List, Optional
 
 
 class Node:
@@ -172,7 +171,7 @@ def build_tree(expression: List[str]) -> Node:
     return tree
 
 
-def evaluate_expression_tree(expression_tree: Node) -> str:
+def evaluate_expression_tree(expression_tree: Node) -> float:
     left = expression_tree.left
     right = expression_tree.right
 
@@ -183,21 +182,9 @@ def evaluate_expression_tree(expression_tree: Node) -> str:
         return expression_tree.value
 
 
-def evaluate(expression: str) -> None:
+def solve(expression: str) -> Optional[float]:
     expression = normalise_expression(expression)
 
     if validate_expression(expression):
         expression_tree = build_tree(expression)
-
-        try:
-            print(f'Result: {evaluate_expression_tree(expression_tree)}')
-
-        except ZeroDivisionError:
-            sys.stderr.write('Division by zero is not allowed\n')
-
-    else:
-        sys.stderr.write('Math expression does not follow the infix notation\n')
-
-
-if __name__ == '__main__':
-    evaluate('- 0 3 + 4 * 2 / ( + 1 0 - 5 )')
+        return evaluate_expression_tree(expression_tree)
