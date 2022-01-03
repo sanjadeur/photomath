@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 
@@ -23,24 +25,27 @@ def extract_characters(photo_path):
         if height == photo_height and width == photo_width:
             continue
 
-        # Create a bounding box
-        cv2.rectangle(photo, (left - 5, top - 5), (left + width + 5, top + height + 5), (0, 255, 0), 3)
-
         # Avoid noise (e.g. dot in wrong_expression.jpg example)
-        if width > 35 and height > 10 or width > 10 and height > 35:
+        if width > 35 and height > 5 or width > 5 and height > 35:
+            # Bounding box is 5 pixels
             characters.append(threshold[top - 5:top + height + 5, left - 5:left + width + 5])
 
     return characters
 
 
-def save_characters(photo_name, characters):
+def save_characters(characters, photo_name, width, height, dest):
     for idx, character in enumerate(characters, start=1):
-        cv2.imwrite(f'../chars/{photo_name}_{idx}.jpg', character)
+        resized_photo = cv2.resize(character, (width, height), interpolation=cv2.INTER_AREA)
+
+        dir_name = os.path.join(dest, photo_name)
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+
+        cv2.imwrite(os.path.join(dir_name, f'char_{idx}.jpg'), resized_photo)
 
 
-if __name__ == '__main__':
-    photo_name = 'simple_expression'
-    photo_path = f'../data/{photo_name}.jpg'
+def detect(photo_path, width, height, dest):
+    photo_name = photo_path.strip().split('/')[-1].split('.')[0]
 
     characters = extract_characters(photo_path)
-    save_characters(photo_name, characters)
+    save_characters(characters, photo_name, width, height, dest)
