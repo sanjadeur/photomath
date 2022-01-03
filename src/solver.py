@@ -13,21 +13,25 @@ operators = {
     # Addition
     '+': {
         'precedence': 0,
+        'associativity': 0,
         'formula': lambda a, b: a + b
     },
     # Subtraction
     '-': {
         'precedence': 0,
+        'associativity': 0,
         'formula': lambda a, b: a - b
     },
     # Multiplication
     '*': {
         'precedence': 1,
+        'associativity': 0,
         'formula': lambda a, b: a * b
     },
     # Division
     '/': {
         'precedence': 1,
+        'associativity': 0,
         'formula': lambda a, b: a / b
     }
 }
@@ -130,11 +134,11 @@ def build_tree(expression: List[str]) -> Node:
             if not stack or stack[-1] == '(':
                 stack.append(i)
 
-            elif is_greater_precedence(i, stack[-1]):
+            elif is_greater_precedence(i, stack[-1]) and operators[i]['associativity'] == 1:
                 stack.append(i)
 
             else:
-                while stack and is_greater_precedence(stack[-1], i):
+                while stack and is_greater_precedence(stack[-1], i) and operators[i]['associativity'] == 0:
                     popped_item = stack.pop()
                     tree = Node(popped_item)
                     tree1 = tree_stack.pop()

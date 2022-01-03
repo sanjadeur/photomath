@@ -9,8 +9,12 @@ random.seed(42)
 def parse_arguments():
     parser = ArgumentParser(description='Photomath - homogenise the data')
 
-    parser.add_argument('--dataset_path', type=str, default='resources/dataset', help='Path to the characters dataset')
-    parser.add_argument('--no_of_files', type=int, default=3000, help='Number of examples for each character')
+    parser.add_argument('--dataset_path', type=str, default='resources/dataset',
+                        help='Path to the characters dataset')
+
+    parser.add_argument('--no_of_files', type=int, default=3000,
+                        help='Number of examples for each character')
+
     parser.add_argument('--dest', type=str, default='resources/homogenised_dataset',
                         help='Path for storing the homogenised characters dataset')
 
