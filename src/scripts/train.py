@@ -14,7 +14,7 @@ from util import load_dataset, normalise_data
 
 def parse_arguments():
     parser = ArgumentParser(description='Photomath - train the model',
-                            epilog='NOTE: Please run scripts/homogenise_data.py first in case dataset is not homogenous.')
+                            epilog='NOTE: Please run scripts/homogenise_data.py first in case dataset is not homogeneous.')
 
     parser.add_argument('--dataset_path', type=str, default='resources/homogenised_dataset',
                         help='path to the homogenised characters dataset')

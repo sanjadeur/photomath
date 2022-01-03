@@ -9,7 +9,7 @@ from util import load_dataset, normalise_data
 
 def parse_arguments():
     parser = ArgumentParser(description='Photomath - test the model',
-                            epilog='NOTE: Please run scripts/homogenise_data.py first in case dataset is not homogenous.\n'
+                            epilog='NOTE: Please run scripts/homogenise_data.py first in case dataset is not homogeneous.\n'
                                    'Please run scripts/train.py first in case there is no saved model.')
 
     parser.add_argument('--dataset_path', type=str, default='resources/homogenised_dataset',
